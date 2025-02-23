@@ -19,7 +19,7 @@ class TextNode():
         self.text_type == others.text_type and
         self.url  == others.url)
     def __repr__(self):
-        return f"{self.__class__.__name__}({self.text!r}, {self.text_type.value}, {self.url!r})"
+        return f"{self.__class__.__name__}({self.text}, {self.text_type.value}, {self.url})"
 
 
 # Debug for checking if works

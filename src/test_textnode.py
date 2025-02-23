@@ -23,6 +23,14 @@ class TestTextNode(unittest.TestCase):
             else:
                 self.assertNotEqual(base_node, node,
                                     f"Nodes with type {t} should not be equal")
+    def test_repr_special_chars(self):
+        test_list = ["hello", "", "$$$$"]
+        for test in test_list:
+            with self.subTest(test_case=test):
+                obj = TextNode(test,TextType("normal"),"bj.com")
+                expected = f"TextNode({test}, normal, bj.com)"
+                self.assertEqual(repr(obj),expected)
+
 
 if __name__ == "__main__":
     unittest.main()
