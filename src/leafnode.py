@@ -12,14 +12,22 @@ class LeafNode(HtmlNode):
     def to_html(self):
         if self.value is None:
             raise ValueError
-        if self.tag == "a":
-            return f"<{self.tag}{self.props}{self.value}</{self.tag}>"
-        elif self.tag is None or "" or " ":
+        
+        if self.tag is None or self.tag == "" or self.tag == " ":
             print("no tag returning value as raw text")
             return self.value
+
+        if self.props is None or self.tag == "" or self.tag == " ":
+            if self.tag == "a":
+                return f"<{self.tag}{self.value}</{self.tag}>"
+            else:
+                return f"<{self.tag}>{self.value}</{self.tag}>"
         else:
-            return f"<{self.tag}>{self.props}{self.value}</{self.tag}>"
-            # return "it is i thet child"
+            if self.tag == "a":
+                return f"<{self.tag}{self.props}{self.value}</{self.tag}>"
+            else:
+                return f"<{self.tag}>{self.props}{self.value}</{self.tag}>"
+         
 
     def __repr__(self):
         return f"HtmlNode(tag='{self.tag}', value='{self.value}', props={self.props})"
