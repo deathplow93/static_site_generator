@@ -1,6 +1,7 @@
 import unittest
 import random
-from textnode import TextNode, TextType
+from src.textnode import TextNode, TextType
+from src.textnode_html import text_node_to_html_node
 
 
 class TestTextNode(unittest.TestCase):

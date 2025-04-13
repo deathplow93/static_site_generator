@@ -1,4 +1,4 @@
-from htmlnode import HtmlNode
+from .htmlnode import HtmlNode
 
 
 class LeafNode(HtmlNode):
@@ -10,12 +10,15 @@ class LeafNode(HtmlNode):
         super().__init__(tag=tag, value=value, children=None, props=props)
 
     def to_html(self):
-        if self.value is None:
-            raise ValueError
-        
+        props_html = ""
+
+        if self.props:
+            props_html = " " + self.props_to_html()
         if self.tag is None or self.tag == "" or self.tag == " ":
-            print("no tag returning value as raw text")
             return self.value
+
+        if self.value is None:
+            raise ValueError("Value is empty")
 
         if self.props is None or self.tag == "" or self.tag == " ":
             if self.tag == "a":
@@ -24,13 +27,12 @@ class LeafNode(HtmlNode):
                 return f"<{self.tag}>{self.value}</{self.tag}>"
         else:
             if self.tag == "a":
-                return f"<{self.tag}{self.props}{self.value}</{self.tag}>"
+                return f"<{self.tag}{props_html}>{self.value}</{self.tag}>"
             else:
-                return f"<{self.tag}>{self.props}{self.value}</{self.tag}>"
-         
+                return f"<{self.tag}>{props_html}{self.value}</{self.tag}>"
 
     def __repr__(self):
-        return f"HtmlNode(tag='{self.tag}', value='{self.value}', props={self.props})"
+        return f"HtmlNode(tag='{self.tag}',value='{self.value}', props={self.props})"
 
 
 # Debug for checking if works
@@ -42,7 +44,7 @@ def main():
         "href": "https://www.google.com",
         "target": "_blank",
     }
-    h_node = LeafNode(tag, value)
+    h_node = LeafNode(tag, value, props)
     # print(h_node)
     print_to_html = h_node.to_html()
 
