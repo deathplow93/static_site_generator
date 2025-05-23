@@ -9,32 +9,52 @@ class TestTextNode(unittest.TestCase):
         base_text = "This is a text node"
         base_url = "http://example.com"
         all_types = list(TextType)
-        # Optionally set a seed for reproducibility:
-        random.seed(42)
+        random.seed(42)  # For reproducibility
 
-        # Choose a random base type
+        # Test equality with same values
         base_type = random.choice(all_types)
         base_node = TextNode(base_text, base_type, base_url)
+        same_node = TextNode(base_text, base_type, base_url)
+        self.assertEqual(base_node, same_node)
 
-        # Check equality or inequality based on the text type
+        # Test inequality with different types
         for t in all_types:
-            node = TextNode(base_text, t, base_url)
-            if t == base_type:
-                self.assertEqual(
-                    base_node, node, f"Nodes with type {t} should be equal"
-                )
-            else:
-                self.assertNotEqual(
-                    base_node, node, f"Nodes with type {t} should not be equal"
-                )
+            if t != base_type:
+                diff_node = TextNode(base_text, t, base_url)
+                self.assertNotEqual(base_node, diff_node)
+
+        # Test inequality with different text/url
+        self.assertNotEqual(base_node, TextNode("Different text", base_type, base_url))
+        self.assertNotEqual(
+            base_node, TextNode(base_text, base_type, "http://different.com")
+        )
 
     def test_repr_special_chars(self):
-        test_list = ["hello", "", "$$$$"]
-        for test in test_list:
-            with self.subTest(test_case=test):
-                obj = TextNode(test, TextType("normal"), "bj.com")
-                expected = f"TextNode({test}, normal, bj.com)"
+        test_cases = [
+            (
+                "hello",
+                TextType.NORMAL,
+                "bj.com",
+                "TextNode('hello', 'normal', 'bj.com')",
+            ),
+            ("", TextType.BOLD, None, "TextNode('', 'bold', None)"),
+            (
+                "$$$$",
+                TextType.CODE,
+                "example.com",
+                "TextNode('$$$$', 'code', 'example.com')",
+            ),
+        ]
+
+        for text, text_type, url, expected in test_cases:
+            with self.subTest(text=text, text_type=text_type, url=url):
+                obj = TextNode(text, text_type, url)
                 self.assertEqual(repr(obj), expected)
+
+        def test_text_type_validation(self):
+            with self.assertRaises(AttributeError):
+                # This should fail because we're passing a string instead of TextType
+                TextNode("test", "invalid_type", None)
 
 
 if __name__ == "__main__":

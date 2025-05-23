@@ -1,5 +1,4 @@
 from enum import Enum
-from leafnode import LeafNode
 
 
 class TextType(Enum):
@@ -7,12 +6,14 @@ class TextType(Enum):
     BOLD = "bold"
     ITALIC = "italic"
     CODE = "code"
-    LINKS = "links"
-    IMAGES = "images"
+    LINKS = "link"
+    IMAGES = "image"
 
 
 class TextNode:
     def __init__(self, text, text_type, url=None):
+        if not isinstance(text_type, TextType):
+            raise ValueError("text_type must be a TextType enum member")
         self.text = text
         self.text_type = text_type
         self.url = url
@@ -25,21 +26,4 @@ class TextNode:
         )
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({self.text}, {self.text_type.value}, {self.url})"
-
-
-Test1 = TextNode("hewwo", "bold", "ass.com")
-print(Test1)
-
-
-def text_node_to_html_node(text_node):
-    pass
-
-
-# LeafNode(tag, value, props)
-
-# Debug for checking if works
-# Test1 = TestNode("hewwo", "bold", "ass.com")
-# # Test2 = TestNode("hewwo", "bold", "ass.com")
-# print(Test1)
-# print(Test1==Test2)
+        return f"TextNode({self.text!r}, {self.text_type.value!r}, {self.url!r})"
