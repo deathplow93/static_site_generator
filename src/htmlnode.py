@@ -1,6 +1,3 @@
-prop_test = {"href": "https://www.google.com", "target": "_blank"}
-
-
 class HtmlNode:
     def __init__(self, tag=None, value=None, children=None, props=None):
         self.tag = tag
@@ -18,6 +15,9 @@ class HtmlNode:
         appended_list = "".join(html_list)
         return appended_list
 
+    def __repr__(self):
+        return f"HtmlNode({self.tag},{self.value},{self.children},{self.props})"
 
-hnode_test = HtmlNode(props=prop_test)
-print(hnode_test.props_to_html())
+
+# hnode_test = HtmlNode(props=prop_test)
+# print(hnode_test.props_to_html())
