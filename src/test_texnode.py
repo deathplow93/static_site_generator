@@ -1,27 +1,7 @@
 import unittest
-import random
 from textnode import TextNode, TextType
+from test_data import *
 
-test_text = ["$!@#$@$", "peee", "doodoo", "-------------", "/////////"]
-test_text_type = [
-    TextType.BOLD,
-    TextType.ITALIC,
-    TextType.TEXT,
-    TextType.IMAGE,
-    TextType.LINK,
-    TextType.CODE,
-]
-test_text_type_2 = [
-    TextType.IMAGE,
-    TextType.BOLD,
-    TextType.CODE,
-    TextType.ITALIC,
-    TextType.LINK,
-    TextType.TEXT,
-]
-test_urls = ["https://bigdogwoof.com", "test.com", "letthebigdogshuntowww"]
-none_list = [None]
-rand_num = random.randint(1, 10)
 
 
 class TestTextNode(unittest.TestCase):
