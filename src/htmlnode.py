@@ -20,7 +20,18 @@ class HtmlNode:
 
     def __repr__(self):
         return f"HtmlNode({self.tag},{self.value},{self.children},{self.props})"
-
+    
+    def __eq__(self, other):
+        if (
+            self.tag == other.tag
+            and self.props == other.props
+            and self.value == other.value
+            and self.children == other.children
+            and self.url == other.url
+        ):
+            return True
+        else:
+            return False
 
 # hnode_test = HtmlNode(props=prop_test)
 # print(hnode_test.props_to_html())

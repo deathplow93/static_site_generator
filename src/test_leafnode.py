@@ -10,7 +10,7 @@ class TestLeafNode(unittest.TestCase):
         for item in test_text:
             for type in test_text_type:
                 for url in test_urls:
-                    node = LeafNode(item, type, url)
+                    node  = LeafNode(item, type, url)
                     node2 = LeafNode(item, type, url)
                     self.assertEqual(node, node2)
 

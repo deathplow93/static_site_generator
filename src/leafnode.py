@@ -9,4 +9,17 @@ class LeafNode(HtmlNode):
         if not self.value:
             raise ValueError("All leaf nodes must have a value!")
         if self.tag == None:
-            return self.value
+            return f"<{self.tag}>{self.value}</{self.tag}>"
+
+    def __repr__(self):
+        return f"HtmlNode({self.value},{self.tag},{self.props})"
+    
+    def __eq__(self, other):
+        if (
+            self.tag == other.tag
+            and self.props == other.props
+            and self.value == other.value
+        ):
+            return True
+        else:
+            return False

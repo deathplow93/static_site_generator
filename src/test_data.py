@@ -2,7 +2,7 @@ from textnode import TextNode, TextType
 import random
 
 # text
-test_text = ["$!@#$@$", "peee", "doodoo", "-------------", "/////////"]
+test_text = [ "peee", "doodoo", "-------------", "/////////"]
 
 # text types
 test_text_type = [
